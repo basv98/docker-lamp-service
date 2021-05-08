@@ -1,0 +1,43 @@
+version: "3"
+
+services:
+  front:
+    build: 
+      context: ./PHP7
+    container_name: 'front'
+    restart: 'always'
+    ports:
+      - "8080:80"
+    links: 
+      - back
+    volumes: 
+      - ./proyectos/front:/var/www/html
+    environment:
+      APACHE_DOCUMENT_ROOT: /var/www/html
+  back:
+    build: 
+      context: ./PHP7
+    container_name: 'back'
+    restart: 'always'
+    ports:
+      - "8081:80"
+    links:
+      - database
+    volumes: 
+      - ./proyectos/back:/var/www/html
+    environment:
+      APACHE_DOCUMENT_ROOT: /var/www/html
+  database:
+    build:
+      context: "./MYSQL"
+    container_name: 'database'
+    restart: 'always'
+    ports:
+      - "127.0.0.1:3306:3306"
+    volumes: 
+      - ./data/mysql:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: docker
+      MYSQL_DATABASE: docker
+      MYSQL_USER: docker
+      MYSQL_PASSWORD: docker
