@@ -12,6 +12,7 @@ services:
       - back
     volumes: 
       - ./proyectos/front:/var/www/html
+      - ./config:/etc/apache2/sites-enabled
     environment:
       APACHE_DOCUMENT_ROOT: /var/www/html
   back:
@@ -25,6 +26,7 @@ services:
       - database
     volumes: 
       - ./proyectos/back:/var/www/html
+      - ./config:/etc/apache2/sites-enabled
     environment:
       APACHE_DOCUMENT_ROOT: /var/www/html
   database:
